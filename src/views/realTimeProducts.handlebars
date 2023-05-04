@@ -1,0 +1,18 @@
+<h3 class="title-color">Pagina principal</h3>
+
+<div>
+  <h2>Bienvenido</h2>
+  <h1>Lista de Compras en Tiempo Real:</h1>
+  <ul>
+      {{#each Products}}
+        <li>title: {{this.title}}
+            description: {{this.description}}
+            Price: {{this.Price}} 
+            thumbnail: {{this.thumbnail}} 
+            code: {{this.code}} 
+            stock: {{this.stock}} 
+            category: {{this.category}} 
+            Id: {{this.Id}} </li>
+      {{/each}}
+  </ul>
+</div>
