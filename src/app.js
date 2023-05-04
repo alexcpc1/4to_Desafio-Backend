@@ -1,7 +1,7 @@
 import express from "express";
 import { productRouter } from "./routes/products.routes.js";
 import { cartRouter } from "./routes/carts.routes.js";
-// import {Server} from "socket.io";
+import {Server} from "socket.io";
 import handlebars from "express-handlebars";
 import { viewsRouter } from "./routes/views.routes.js";
 import { __dirname } from "./utils.js";
@@ -20,7 +20,7 @@ app.use(express.static(path.join(__dirname,"public")));
 const httpServer = app.listen(port,()=>console.log(`Server listening on port ${port}`));
 
 // //servidor de websocket
-// const socketServer = new Server(httpServer);
+const socketServer = new Server(httpServer);
 
 //configuracion del motor de plantillas
 app.engine("handlebars",handlebars.engine());//inicializando handlebars
@@ -34,15 +34,15 @@ app.use("/api/realtimeproducts", viewsRouter);
  
 app.use(viewsRouter);
 
-// let messages = [];
-// socketServer.on("connection",(socket)=>{
-//     console.log(`nuevo socket cliente conectado ${socket.id}`);
-//     //emitir el mensaje al socket actual
-//     socket.emit("chatMessages",messages);
+let messages = [];
+socketServer.on("connection",(socket)=>{
+    console.log(`nuevo socket cliente conectado ${socket.id}`);
+    //emitir el mensaje al socket actual
+    socket.emit("chatMessages",messages);
 
-//     socket.on("message",(data)=>{
-//         messages.push({socketId:socket.id, message:data});
-//         //emitir el mensaje a todos los clientes conectados
-//         socketServer.emit("chatMessages",messages);
-//     });
-// });
+    socket.on("message",(data)=>{
+        messages.push({socketId:socket.id, message:data});
+        //emitir el mensaje a todos los clientes conectados
+        socketServer.emit("chatMessages",messages);
+    });
+});

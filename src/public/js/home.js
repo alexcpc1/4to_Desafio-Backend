@@ -1,6 +1,6 @@
-console.log("home")
-// console.log("soy el archivo javascript para la pagina del home");
-// const socketClient = io();
+console.log("home js")
+console.log("soy el archivo javascript para la pagina del home");
+const socketClient = io();
 
 // const chatBox = document.getElementById("chatBox");
 // const sendButton = document.getElementById("sendButton");
@@ -20,12 +20,12 @@ console.log("home")
 //         sendMessage()
 //     }
 // });
-// // socketClient.on("messageServer",(data)=>{
-// //     console.log(data)
-// //     setTimeout(() => {
-// //         socketClient.emit("messageClient","confirmacion recibida")
-// //     }, 5000);
-// // });
+socketClient.on("messageServer",(data)=>{
+    console.log(data)
+    setTimeout(() => {
+        socketClient.emit("messageClient","confirmacion recibida")
+    }, 5000);
+});
 // socketClient.on("chatMessages",(data)=>{
 //     console.log(data);
 //     chatHistory.innerHTML="";
